@@ -1,0 +1,27 @@
+﻿<Window x:Class="PharmacyManagementApp.Views.EditRecordWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PharmacyManagementApp.Views"
+        mc:Ignorable="d"
+        Title="Редактирование записи" Height="290" Width="300">
+    <Grid DataContext="{Binding Medicament}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel >
+            <Label >MNN</Label>
+            <TextBox  IsReadOnly="True" Margin="2" x:Name="textMNN"></TextBox>
+            <Label>Наименование</Label>
+            <TextBox Margin="2" IsReadOnly="True" x:Name="textName"></TextBox>
+            <Label >Цена</Label>
+            <TextBox Margin="2"  x:Name="textPrice"></TextBox>
+            <Label>Количество</Label>
+            <TextBox  Margin="2"  x:Name="textCount"></TextBox>
+        </StackPanel>
+        <Button Grid.Row="1" Margin="5" Width="100" HorizontalAlignment="Left" Click="Button_Click">Принять</Button>
+        <Button Grid.Row="1" Margin="5" Width="100" HorizontalAlignment="Right">Отмена</Button>
+    </Grid>
+</Window>

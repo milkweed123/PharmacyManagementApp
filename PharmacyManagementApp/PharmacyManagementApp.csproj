@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,6 +15,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,7 +38,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,7 +65,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Migrations\202205191609519_Add_ChangeDate.cs" />
+    <Compile Include="Migrations\202205191609519_Add_ChangeDate.designer.cs">
+      <DependentUpon>202205191609519_Add_ChangeDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MedicametChanges.xaml.cs">
+      <DependentUpon>MedicametChanges.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\EditRecordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,10 +84,49 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Context\ApplicationDbContext.cs" />
+    <Compile Include="Migrations\202205151354527_Add_LS_Model.cs" />
+    <Compile Include="Migrations\202205151354527_Add_LS_Model.designer.cs">
+      <DependentUpon>202205151354527_Add_LS_Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205151552289_Rename_LS_to_Medicament.cs" />
+    <Compile Include="Migrations\202205151552289_Rename_LS_to_Medicament.designer.cs">
+      <DependentUpon>202205151552289_Rename_LS_to_Medicament.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205151630165_Fix_Price_Type.cs" />
+    <Compile Include="Migrations\202205151630165_Fix_Price_Type.designer.cs">
+      <DependentUpon>202205151630165_Fix_Price_Type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205151738298_Fix_PrimaryKey.cs" />
+    <Compile Include="Migrations\202205151738298_Fix_PrimaryKey.designer.cs">
+      <DependentUpon>202205151738298_Fix_PrimaryKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205171539236_Add_change_model.cs" />
+    <Compile Include="Migrations\202205171539236_Add_change_model.designer.cs">
+      <DependentUpon>202205171539236_Add_change_model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205181441136_Foregin_Key_MedicamentId.cs" />
+    <Compile Include="Migrations\202205181441136_Foregin_Key_MedicamentId.designer.cs">
+      <DependentUpon>202205181441136_Foregin_Key_MedicamentId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Data\Change.cs" />
+    <Compile Include="Models\SerializerModels.cs" />
+    <Compile Include="Models\Data\Medicament.cs" />
+    <Compile Include="Models\RelayCommand.cs" />
+    <Compile Include="Services\LoaderService.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\EditRecordWindow.xaml.cs">
+      <DependentUpon>EditRecordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MedicametChanges.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -82,10 +142,32 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202205151354527_Add_LS_Model.resx">
+      <DependentUpon>202205151354527_Add_LS_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205151552289_Rename_LS_to_Medicament.resx">
+      <DependentUpon>202205151552289_Rename_LS_to_Medicament.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205151630165_Fix_Price_Type.resx">
+      <DependentUpon>202205151630165_Fix_Price_Type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205151738298_Fix_PrimaryKey.resx">
+      <DependentUpon>202205151738298_Fix_PrimaryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205171539236_Add_change_model.resx">
+      <DependentUpon>202205171539236_Add_change_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205181441136_Foregin_Key_MedicamentId.resx">
+      <DependentUpon>202205181441136_Foregin_Key_MedicamentId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205191609519_Add_ChangeDate.resx">
+      <DependentUpon>202205191609519_Add_ChangeDate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,5 +176,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>
